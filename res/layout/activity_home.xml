@@ -1,0 +1,74 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+ 
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+	       <RelativeLayout
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+      android:layout_gravity="center"
+         android:gravity="center"
+     android:layout_weight="0.99" >
+	     <ImageView
+	     android:id="@+id/chargeView"
+	     android:layout_width="240dp"
+		 android:layout_height="250dp"
+	     android:layout_gravity="center"
+		 android:scaleType="fitXY"
+		 android:contentDescription="TODO"/>
+		    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="240dp"
+            android:layout_height="250dp"
+	        android:layout_gravity="center"
+	        android:gravity="center"
+	        android:text=""
+	        android:textColor="#fffff0"
+	        android:textSize="50sp" />
+		       </RelativeLayout>
+		   
+	     <TextView
+	         android:id="@+id/textView2"
+	       android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_gravity="center"
+	         android:text=""
+	         android:textColor="#fffff0"
+	         android:textSize="15sp" />
+
+	     <TextView
+	         android:id="@+id/textView3"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	          android:layout_gravity="center"
+	         android:textColor="#fffff0"
+	         android:textSize="15sp" />
+	      <TextView
+	          android:id="@+id/textLabelTime"
+	          android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+	          android:layout_gravity="center"
+	          android:text="H:M:S"
+	          android:textColor="#fffff0"
+	          android:textSize="20sp" />
+
+	      <TextView
+	          android:id="@+id/textView4"
+	          android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+	          android:layout_gravity="center"
+	          android:text=""
+	          android:textColor="#fffff0"
+	          android:textSize="20sp" />
+	
+	  </LinearLayout>
+	
+
+
+
+</ScrollView>
