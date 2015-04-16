@@ -26,9 +26,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
+
 
 
 public class MainActivity extends FragmentActivity {
@@ -44,6 +42,8 @@ public class MainActivity extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        
+        
        
     }
     @Override
@@ -58,10 +58,7 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
+   
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fm) {
             super(fm);
@@ -75,8 +72,6 @@ public class MainActivity extends FragmentActivity {
     	        return new HomeActivity();
     		case 1:
     			return new OptionActivity();
-//    		case 2:
-//    			return new HistoryActivity();
     		};
     		
             return new android.support.v4.app.Fragment();
