@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 public class OptionActivity extends Fragment{
 	protected static final int REQ_CODE_PICK_SOUNDFILE = 0;
+	protected static final int MODE_PRIVATE = 0;
 	
 	
 	@Override
@@ -41,31 +44,13 @@ public class OptionActivity extends Fragment{
 	    }
 		public void onActivityCreated(Bundle savedInstanceState){
 			   super.onActivityCreated(savedInstanceState);
-			 RadioGroup  batteryeffectButton = (RadioGroup)getView().findViewById(R.id.radioGroup1);
+		
 				Button clickButton = (Button)getView().findViewById(R.id.button1);
+				SharedPreferences userDetails = getActivity().getSharedPreferences("userdetails", MODE_PRIVATE);
+				String setting_effect_ring = userDetails.getString("setting_effect_ring", "");
 				
 			 
-			 batteryeffectButton.setOnCheckedChangeListener(new OnCheckedChangeListener() 
-			    {
-			        @Override
-			        public void onCheckedChanged(RadioGroup group, int checkedId) {
-			            // checkedId is the RadioButton selected
-			        	TextView batteryeffectText = (TextView)getView().findViewById(R.id.batteryEffectText);
-				        
-			        	if(checkedId== R.id.radioGroupButton0){
-			        		batteryeffectText.setText("blink");
-			        	}
-			        	else if(checkedId== R.id.radioGroupButton1){
-			        		batteryeffectText.setText("vibrate");
-			        	}
-			        	else{
-			        		batteryeffectText.setText("vibrate and ring");
-			        	}
-			        
-			        	
-			        	
-			        }
-			    });
+			
 			
 				clickButton.setOnClickListener(new OnClickListener(){
 					@Override
