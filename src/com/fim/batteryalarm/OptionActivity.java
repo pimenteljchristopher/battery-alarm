@@ -1,13 +1,21 @@
 package com.fim.batteryalarm;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.BatteryManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +30,51 @@ import android.widget.TextView;
 public class OptionActivity extends Fragment{
 	protected static final int REQ_CODE_PICK_SOUNDFILE = 0;
 	protected static final int MODE_PRIVATE = 0;
+	public BroadcastReceiver mbcr=new BroadcastReceiver()
+	  {
+		 public void onReceive(Context c, Intent i)
+		  {
+			 TextView healthView = (TextView)getView().findViewById(R.id.healthtext);
+			 TextView techView = (TextView)getView().findViewById(R.id.techtext);
+			 TextView tempView = (TextView)getView().findViewById(R.id.temptext);
+			 TextView voltView = (TextView)getView().findViewById(R.id.volttext);
+			 int health = i.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
+			 String BatteryHealth = " No Information";
+			 String  tech= i.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
+			 int temp = i.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
+			 int volt = i.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
+			 
+			 if (health == BatteryManager.BATTERY_HEALTH_COLD){BatteryHealth = "Cold";}
+		      if (health == BatteryManager.BATTERY_HEALTH_DEAD){BatteryHealth = "Dead";}
+		      if (health == BatteryManager.BATTERY_HEALTH_GOOD){BatteryHealth = "Good";}
+		      if (health == BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE){BatteryHealth = "Over-Voltage";}
+		      if (health == BatteryManager.BATTERY_HEALTH_OVERHEAT){BatteryHealth = "Overheat";}
+		      if (health == BatteryManager.BATTERY_HEALTH_UNKNOWN){BatteryHealth = "Unknown";}
+		      if (health == BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE){BatteryHealth = "Unspecified Failure";}
+
+			 
+			 healthView.setText(BatteryHealth+"");
+			 techView.setText(tech+"");
+			 tempView.setText(temp+"");
+			 voltView.setText(volt+"");
+			 
+		  }
+	  };
 	
+	public String getRealPathFromURI(Context context, Uri contentUri) {
+		  Cursor cursor = null;
+		  try { 
+		    String[] proj = { MediaStore.Audio.Media.DATA };
+		    cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+		    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		    cursor.moveToFirst();
+		    return cursor.getString(column_index);
+		  } finally {
+		    if (cursor != null) {
+		      cursor.close();
+		    }
+		  }
+		}
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -31,12 +83,19 @@ public class OptionActivity extends Fragment{
 	    if (requestCode == REQ_CODE_PICK_SOUNDFILE && resultCode == Activity.RESULT_OK){
 	        if ((data != null) && (data.getData() != null)){
 	            Uri audioFileUri = data.getData();
-	            path.setText(audioFileUri+"path");
+	           String audioFilePath = getRealPathFromURI(getActivity(),audioFileUri);
+	           
+	            SharedPreferences userDetails = getActivity().getSharedPreferences("userdetails", MODE_PRIVATE);
+	            Editor edit = userDetails.edit();
+	            edit.clear();
+	            edit.putString("path",audioFilePath);
+	            edit.commit();
+	            path.setText(audioFilePath);
 	         }
 	  }
 	 }
 
-
+	
 	
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
 	        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_option, container, false);
@@ -44,14 +103,8 @@ public class OptionActivity extends Fragment{
 	    }
 		public void onActivityCreated(Bundle savedInstanceState){
 			   super.onActivityCreated(savedInstanceState);
-		
+			   getActivity().registerReceiver(mbcr,new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 				Button clickButton = (Button)getView().findViewById(R.id.button1);
-				SharedPreferences userDetails = getActivity().getSharedPreferences("userdetails", MODE_PRIVATE);
-				String setting_effect_ring = userDetails.getString("setting_effect_ring", "");
-				
-			 
-			
-			
 				clickButton.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View v) {
@@ -63,4 +116,5 @@ public class OptionActivity extends Fragment{
 					}
 		});
 }
+		
 }

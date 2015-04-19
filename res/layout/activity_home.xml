@@ -28,7 +28,7 @@
 	        android:layout_gravity="center"
 	        android:gravity="center"
 	        android:text=""
-	        android:textColor="#fffff0"
+	        
 	        android:textSize="50sp" />
 		       </RelativeLayout>
 		   
@@ -38,7 +38,7 @@
 	         android:layout_height="wrap_content"
 	         android:layout_gravity="center"
 	         android:text=""
-	         android:textColor="#fffff0"
+	         
 	         android:textSize="15sp" />
 
 	     <TextView
@@ -46,7 +46,7 @@
 	         android:layout_width="wrap_content"
 	         android:layout_height="wrap_content"
 	          android:layout_gravity="center"
-	         android:textColor="#fffff0"
+	         
 	         android:textSize="15sp" />
 	      <TextView
 	          android:id="@+id/textLabelTime"
@@ -54,7 +54,7 @@
 	          android:layout_height="wrap_content"
 	          android:layout_gravity="center"
 	          android:text=" H : M : S "
-	          android:textColor="#fffff0"
+	          
 	          android:textSize="20sp" />
 
 	      <TextView
@@ -63,7 +63,7 @@
 	          android:layout_height="wrap_content"
 	          android:layout_gravity="center"
 	          android:text=""
-	          android:textColor="#fffff0"
+	          
 	          android:textSize="20sp" />
 
 	      <Button

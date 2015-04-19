@@ -1,5 +1,8 @@
 package com.fim.batteryalarm;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import android.app.AlertDialog;
@@ -12,8 +15,10 @@ import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,11 +107,26 @@ public class HomeActivity extends Fragment{
 	}
 	private void fullBattery(){
 		 try{ 
-			   AssetFileDescriptor afd=getActivity().getAssets().openFd(ring());
-			   final MediaPlayer mp=new MediaPlayer();
-			   mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-			   mp.prepare();
-			   mp.start();
+			
+			  FileDescriptor fd = null;
+			  final MediaPlayer mp=new MediaPlayer(); 
+			  File baseDir = Environment.getExternalStorageDirectory();
+
+			
+		   if(ring()!=null){
+			   FileInputStream fis = new FileInputStream(ring());
+			      fd = fis.getFD();	
+			      mp.setDataSource(fd);
+		   }else{
+			   AssetFileDescriptor afd=getActivity().getAssets().openFd("small.mp3");
+			   mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+		   }
+		 
+		   mp.prepare();
+		   mp.start();
+			   
+			   
+			  
 			   AlertDialog alert = new AlertDialog.Builder( getActivity()).create();
 		          alert.setTitle("Battery Alarm");
 		          alert.setMessage("You are now fully charged.");
@@ -116,19 +136,25 @@ public class HomeActivity extends Fragment{
 		              }
 		          });
 		          alert.show();
+//			 String filePath = Environment.getExternalStorageDirectory()+"/Music/Bad.mp3";
+//		 MediaPlayer mediaPlayer= new  MediaPlayer();
+//			 mediaPlayer.setDataSource(filePath,afd.getStartOffset(), afd.getLength());
+//			 mediaPlayer.prepare();   
+//			 mediaPlayer.start();
 			    }
 			    catch(IOException e){
-//			    	tv.setText(e+" ::error::");
+			    	 TextView info=(TextView)getView().findViewById(R.id.textView3);
+			    	  info.setText(e+"");
 			    }
 	}
 
 	public String ring(){
-//		SharedPreferences userDetails = getActivity().getSharedPreferences("userdetails", MODE_PRIVATE);
-//		String path = userDetails.getString("path", "");
+		SharedPreferences userDetails = getActivity().getSharedPreferences("userdetails", MODE_PRIVATE);
+		String path = userDetails.getString("path", "");
 //		if(path == null){
 //			 path = "small.mp3";
 //		}
-		String path  = "small.mp3";
+//		String path  = "small.mp3";
 		
 		return  path;
 	}
