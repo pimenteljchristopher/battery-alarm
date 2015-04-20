@@ -42,13 +42,7 @@ public class HomeActivity extends Fragment{
 	      boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
 	      TextView battery_level=(TextView)getView().findViewById(R.id.battery_level);
 		  battery_level.setText(""+Integer.toString(level)+"%");	  
-			Button clickButton = (Button)getView().findViewById(R.id.button1);
-			clickButton.setOnClickListener(new OnClickListener(){
-				@Override
-				public void onClick(View v) {
-					  fullBattery();
-				}
-			});
+			
 			Button shutdown_button = (Button)getView().findViewById(R.id.shutdown_button);
 			shutdown_button.setOnClickListener(new OnClickListener(){
 				@Override
