@@ -44,23 +44,20 @@ public class OptionActivity extends Fragment{
 			 int temp = i.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
 			 int volt = i.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
 			 
-			 if (health == BatteryManager.BATTERY_HEALTH_COLD){BatteryHealth = "Cold";}
+			  if (health == BatteryManager.BATTERY_HEALTH_COLD){BatteryHealth = "Cold";}
 		      if (health == BatteryManager.BATTERY_HEALTH_DEAD){BatteryHealth = "Dead";}
 		      if (health == BatteryManager.BATTERY_HEALTH_GOOD){BatteryHealth = "Good";}
 		      if (health == BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE){BatteryHealth = "Over-Voltage";}
 		      if (health == BatteryManager.BATTERY_HEALTH_OVERHEAT){BatteryHealth = "Overheat";}
 		      if (health == BatteryManager.BATTERY_HEALTH_UNKNOWN){BatteryHealth = "Unknown";}
 		      if (health == BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE){BatteryHealth = "Unspecified Failure";}
-
-			 
+		      
 			 healthView.setText(BatteryHealth+"");
 			 techView.setText(tech+"");
 			 tempView.setText(temp+"");
-			 voltView.setText(volt+"");
-			 
+			 voltView.setText(volt+"");	 
 		  }
 	  };
-	
 	public String getRealPathFromURI(Context context, Uri contentUri) {
 		  Cursor cursor = null;
 		  try { 
@@ -93,10 +90,7 @@ public class OptionActivity extends Fragment{
 	            path.setText(audioFilePath);
 	         }
 	  }
-	 }
-
-	
-	
+	 }	
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
 	        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_option, container, false);
 	        return rootView;
@@ -115,6 +109,5 @@ public class OptionActivity extends Fragment{
 						startActivityForResult(Intent.createChooser(intent, getString(R.string.select_audio_file_title)), REQ_CODE_PICK_SOUNDFILE);
 					}
 		});
-}
-		
+        }	
 }

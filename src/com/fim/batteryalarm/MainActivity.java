@@ -32,19 +32,14 @@ import android.widget.TextView;
 public class MainActivity extends FragmentActivity {
 	 private ViewPager mPager;
 	 private PagerAdapter mPagerAdapter;  
-	private static final int NUM_PAGES = 2;
-	
-
+	 private static final int NUM_PAGES = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mPagerAdapter);
-        
-        
-       
+        mPager.setAdapter(mPagerAdapter);  
     }
     @Override
     public void onBackPressed() {
@@ -57,13 +52,10 @@ public class MainActivity extends FragmentActivity {
             mPager.setCurrentItem(mPager.getCurrentItem() - 1);
         }
     }
-
-   
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fm) {
             super(fm);
         }
-
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
         	switch(position)
@@ -76,7 +68,6 @@ public class MainActivity extends FragmentActivity {
     		
             return new android.support.v4.app.Fragment();
         }
-
         @Override
         public int getCount() {
             return NUM_PAGES;

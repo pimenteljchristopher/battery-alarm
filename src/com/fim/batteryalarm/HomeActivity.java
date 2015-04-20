@@ -31,35 +31,33 @@ import android.widget.TextView;
 
 public class HomeActivity extends Fragment{
 	private static final int MODE_PRIVATE = 0;
-	
-
-	
 	public BroadcastReceiver mbcr=new BroadcastReceiver()
-	  {
-		 
+	  { 
 	  AnimationDrawable ChargingAnimation;
 	  public void onReceive(Context c, Intent i)
 	  {
-		 
 		  int level=i.getIntExtra("level", 0);
 		  int scale = i.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 		  int status = i.getIntExtra(BatteryManager.EXTRA_STATUS, -1);;
 	      boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
-	      
-	      TextView tv=(TextView)getView().findViewById(R.id.textView1);
-		  tv.setText(""+Integer.toString(level)+"%");	  
-	
-		  
+	      TextView battery_level=(TextView)getView().findViewById(R.id.battery_level);
+		  battery_level.setText(""+Integer.toString(level)+"%");	  
 			Button clickButton = (Button)getView().findViewById(R.id.button1);
 			clickButton.setOnClickListener(new OnClickListener(){
-
 				@Override
 				public void onClick(View v) {
 					  fullBattery();
 				}
-				
 			});
-		
+			Button shutdown_button = (Button)getView().findViewById(R.id.shutdown_button);
+			shutdown_button.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					int pid = android.os.Process.myPid();
+				    android.os.Process.killProcess(pid);
+				    System.exit(0);
+				}
+			});
 		  if(isCharging){
 			  chargingBattery(level,scale); 
 			  if(level==100){
@@ -78,41 +76,36 @@ public class HomeActivity extends Fragment{
 		  int totalMinutes = totalSeconds / SECONDS_IN_A_MINUTE;
 		  int minutes = totalMinutes % MINUTES_IN_AN_HOUR;
 		  int hours = totalMinutes / MINUTES_IN_AN_HOUR;
-		 
-		  TextView info=(TextView)getView().findViewById(R.id.textView3);
-		  TextView charging=(TextView)getView().findViewById(R.id.textView2);
-		  TextView estimated=(TextView)getView().findViewById(R.id.textView4);
-		  ImageView chargeAnimate = (ImageView)getView().findViewById(R.id.chargeView);
-		 
-		  chargeAnimate.setBackgroundResource(R.drawable.animetecharge);
-		  ChargingAnimation = (AnimationDrawable)chargeAnimate.getBackground();
+		  
+		  TextView charging_state=(TextView)getView().findViewById(R.id.charging_state);
+		  TextView estimate_time=(TextView)getView().findViewById(R.id.estimate_time);
+		  ImageView battery_image = (ImageView)getView().findViewById(R.id.battery_image);
+		  
+		  battery_image.setBackgroundResource(R.drawable.animetecharge);
+		  ChargingAnimation = (AnimationDrawable)battery_image.getBackground();
 		  ChargingAnimation.start();
-	      charging.setText("CHARGING");
-		  info.setText("Estimated Finished Time");
-		  estimated.setText(+hours+":" + minutes + ":" + seconds);
-		 
+	      charging_state.setText("Charging");
 		
+		  estimate_time.setText(+hours+":" + minutes + ":" + seconds);
 	}
 	private void chargingBatteryNot(){
-		  ImageView chargeAnimate = (ImageView)getView().findViewById(R.id.chargeView);	
-		  TextView estimated=(TextView)getView().findViewById(R.id.textView4);
+		  TextView charging_state=(TextView)getView().findViewById(R.id.charging_state);
+		  ImageView battery_image = (ImageView)getView().findViewById(R.id.battery_image);	
+		  TextView estimate_time=(TextView)getView().findViewById(R.id.estimate_time);
 		 
-		  chargeAnimate.setBackgroundResource(R.drawable.animetecharge);
-		  ChargingAnimation = (AnimationDrawable)chargeAnimate.getBackground();
+		  battery_image.setBackgroundResource(R.drawable.animetecharge);
+		  ChargingAnimation = (AnimationDrawable)battery_image.getBackground();
 		  ChargingAnimation.stop();
-		  chargeAnimate.setBackgroundDrawable(null);
-		  chargeAnimate.setBackgroundResource(R.drawable.idle);
+		  battery_image.setBackgroundDrawable(null);
+		  battery_image.setBackgroundResource(R.drawable.idle);
 		
-	      estimated.setText(00+":" + 00 + ":" + 00);
+		  charging_state.setText("Discharging");
+	      estimate_time.setText(00+":" + 00 + ":" + 00);
 	}
 	private void fullBattery(){
-		 try{ 
-			
-			  FileDescriptor fd = null;
-			  final MediaPlayer mp=new MediaPlayer(); 
-			  File baseDir = Environment.getExternalStorageDirectory();
-
-			
+	    try{ 
+		FileDescriptor fd = null;
+		final MediaPlayer mp=new MediaPlayer(); 		
 		   if(ring()!=null){
 			   FileInputStream fis = new FileInputStream(ring());
 			      fd = fis.getFD();	
@@ -121,12 +114,8 @@ public class HomeActivity extends Fragment{
 			   AssetFileDescriptor afd=getActivity().getAssets().openFd("small.mp3");
 			   mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
 		   }
-		 
 		   mp.prepare();
 		   mp.start();
-			   
-			   
-			  
 			   AlertDialog alert = new AlertDialog.Builder( getActivity()).create();
 		          alert.setTitle("Battery Alarm");
 		          alert.setMessage("You are now fully charged.");
@@ -136,41 +125,23 @@ public class HomeActivity extends Fragment{
 		              }
 		          });
 		          alert.show();
-//			 String filePath = Environment.getExternalStorageDirectory()+"/Music/Bad.mp3";
-//		 MediaPlayer mediaPlayer= new  MediaPlayer();
-//			 mediaPlayer.setDataSource(filePath,afd.getStartOffset(), afd.getLength());
-//			 mediaPlayer.prepare();   
-//			 mediaPlayer.start();
 			    }
 			    catch(IOException e){
-			    	 TextView info=(TextView)getView().findViewById(R.id.textView3);
-			    	  info.setText(e+"");
+			    
 			    }
 	}
-
 	public String ring(){
 		SharedPreferences userDetails = getActivity().getSharedPreferences("userdetails", MODE_PRIVATE);
 		String path = userDetails.getString("path", "");
-//		if(path == null){
-//			 path = "small.mp3";
-//		}
-//		String path  = "small.mp3";
-		
 		return  path;
 	}
 	};
-	
-	
-	
-
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
 	        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_home, container, false);
 	        return rootView;
 	    }
-	
 	public void onActivityCreated(Bundle savedInstanceState){
 		   super.onActivityCreated(savedInstanceState);
 		   getActivity().registerReceiver(mbcr,new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-		   
 		}
 }
