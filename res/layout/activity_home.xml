@@ -51,30 +51,38 @@
 	         android:layout_width="wrap_content"
 	         android:layout_height="wrap_content"
 	         android:layout_gravity="center"
+	         android:paddingTop="5sp"
+	         android:paddingBottom="5sp"
 	         android:textStyle="bold"
-	         android:textSize="14sp" />
+	         android:textSize="17sp" />
 
 	     <TextView
 	         android:id="@+id/estimate_label_finish"
 	         android:layout_width="wrap_content"
 	         android:layout_height="wrap_content"
 	         android:layout_gravity="center"
+	         android:paddingTop="5sp"
+	         android:paddingBottom="5sp"
 	         android:text="Estimated Finished Time"
-	         android:textSize="14sp" />
+	         android:textSize="16sp" />
 	      <TextView
 	          android:id="@+id/estimate_label_HMS"
 	          android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
 	          android:layout_gravity="center"
+	          android:paddingTop="5sp"
+	          android:paddingBottom="5sp"
 	          android:text=" H : M : S "
-	          android:textSize="14sp" />
+	          android:textSize="16sp" />
 
 	      <TextView
 	          android:id="@+id/estimate_time"
 	          android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
 	          android:layout_gravity="center"
-	          android:textSize="14sp" />
+	          android:paddingTop="5sp"
+	          android:paddingBottom="5sp"
+	          android:textSize="16sp" />
 
 	   
 	

@@ -2,31 +2,30 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp" >
+    xmlns:ads="http://schemas.android.com/apk/res-auto" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-        <TextView
-            android:id="@+id/path"
-            style="?android:textAppearanceMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingMultiplier="1.2"
-            android:padding="16dp" />
-	 <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-               <TextView
-                android:id="@+id/ringtoneview"
-                android:layout_width="0dp"
+       
+           <TextView
+                android:id="@+id/settingview"
+                android:layout_width="wrap_content"
     		    android:layout_weight="1"
-    		    android:layout_gravity="right"
+    		    android:layout_gravity="start"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:paddingTop="20sp"
+                android:paddingLeft="17sp"
                  android:textSize="15sp" 
-                android:text="Ringtone Sound" />
+                android:text="Settings" />
+	 <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20sp"
+            >
+            
         <Button
             android:id="@+id/button1"
             android:layout_width="30dp"
@@ -34,18 +33,37 @@
 		    android:layout_weight="0.50"
 		    android:layout_gravity="start"
             android:background="@drawable/ringtone" />
+         <TextView
+            android:id="@+id/path"
+            android:gravity="center"
+            android:layout_width="0dp"
+    		android:layout_weight="1"
+            android:layout_height="wrap_content" />
         </LinearLayout>
+          <TextView
+                android:id="@+id/infoview"
+                android:layout_width="wrap_content"
+    		    android:layout_weight="1"
+    		    android:layout_gravity="start"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingLeft="17sp"
+                 android:textSize="15sp" 
+                android:text="Information" />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:padding="5sp"
+            >
             <TextView
                 android:id="@+id/healthview"
                 android:layout_width="0dp"
     		    android:layout_weight="1"
     		    android:layout_gravity="right"
+    		     android:paddingLeft="20sp"
                 android:layout_height="wrap_content"
                 android:text="Battery Health"
-                android:textStyle="bold" />
+             />
             <TextView
                 android:id="@+id/healthtext"
                 android:layout_width="0dp"
@@ -55,16 +73,19 @@
         </LinearLayout>
            <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:padding="5sp"
+            android:paddingLeft="15sp"  >
 
             <TextView
                 android:id="@+id/techview"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_gravity="right"
+                 android:paddingLeft="20sp"
                 android:layout_height="wrap_content"
                 android:text="Battery Technology"
-                android:textStyle="bold" />
+               />
 
             <TextView
                 android:id="@+id/techtext"
@@ -76,16 +97,19 @@
         </LinearLayout>
            <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content" 
+            android:padding="5sp"
+            android:paddingLeft="15sp" >
 
             <TextView
                 android:id="@+id/tempview"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_gravity="right"
+                 android:paddingLeft="20sp"
                 android:layout_height="wrap_content"
                 android:text="Battery Temperature"
-                android:textStyle="bold" />
+                />
 
             <TextView
                 android:id="@+id/temptext"
@@ -97,16 +121,19 @@
         </LinearLayout>
            <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content" 
+            android:padding="5sp"
+            android:paddingLeft="15sp" >
 
             <TextView
                 android:id="@+id/voltview"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
+                 android:paddingLeft="20sp"
                 android:layout_height="wrap_content"
                 android:text="Battery Voltage"
-                android:textStyle="bold" />
+                />
 
             <TextView
                 android:id="@+id/volttext"
@@ -119,7 +146,15 @@
 
         
 
-    
+    	<com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
         
 
      

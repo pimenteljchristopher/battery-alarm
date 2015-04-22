@@ -27,17 +27,23 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
+
 public class OptionActivity extends Fragment{
 	protected static final int REQ_CODE_PICK_SOUNDFILE = 0;
 	protected static final int MODE_PRIVATE = 0;
 	public BroadcastReceiver mbcr=new BroadcastReceiver()
 	  {
 		 public void onReceive(Context c, Intent i)
-		  {
+		  { 
+			 HomeActivity ha = new HomeActivity();
 			 TextView healthView = (TextView)getView().findViewById(R.id.healthtext);
 			 TextView techView = (TextView)getView().findViewById(R.id.techtext);
 			 TextView tempView = (TextView)getView().findViewById(R.id.temptext);
 			 TextView voltView = (TextView)getView().findViewById(R.id.volttext);
+			 TextView path  = (TextView)getView().findViewById(R.id.path);
 			 int health = i.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
 			 String BatteryHealth = " No Information";
 			 String  tech= i.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
@@ -52,6 +58,13 @@ public class OptionActivity extends Fragment{
 		      if (health == BatteryManager.BATTERY_HEALTH_UNKNOWN){BatteryHealth = "Unknown";}
 		      if (health == BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE){BatteryHealth = "Unspecified Failure";}
 		      
+		  	SharedPreferences userDetails = getActivity().getSharedPreferences("userdetails", MODE_PRIVATE);
+			String pathVar = userDetails.getString("path", "");
+			if(pathVar==""){
+				pathVar = "small.mp3";
+			}
+				
+		     path.setText(pathVar+"");
 			 healthView.setText(BatteryHealth+"");
 			 techView.setText(tech+"");
 			 tempView.setText(temp+"");
@@ -97,6 +110,9 @@ public class OptionActivity extends Fragment{
 	    }
 		public void onActivityCreated(Bundle savedInstanceState){
 			   super.onActivityCreated(savedInstanceState);
+			   AdView mAdView = (AdView)getView().findViewById(R.id.adView);
+		        AdRequest adRequest = new AdRequest.Builder().build();
+		        mAdView.loadAd(adRequest);
 			   getActivity().registerReceiver(mbcr,new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 				Button clickButton = (Button)getView().findViewById(R.id.button1);
 				clickButton.setOnClickListener(new OnClickListener(){
