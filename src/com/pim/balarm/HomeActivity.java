@@ -1,9 +1,11 @@
-package com.fim.batteryalarm;
+package com.pim.balarm;
 
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import com.fim.batteryalarm.R;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;

@@ -1,4 +1,4 @@
-package com.fim.batteryalarm;
+package com.pim.balarm;
 
 import java.io.File;
 import java.net.URI;
@@ -27,6 +27,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
+import com.fim.batteryalarm.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 

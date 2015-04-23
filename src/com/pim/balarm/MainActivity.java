@@ -1,6 +1,8 @@
-package com.fim.batteryalarm;
+package com.pim.balarm;
 
 import java.io.IOException;
+
+import com.fim.batteryalarm.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
